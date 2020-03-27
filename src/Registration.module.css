@@ -1,0 +1,10 @@
+.register{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width:100px;
+    margin: 0 auto;
+    margin-top: 400px;
+
+
+}
