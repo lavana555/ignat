@@ -9,7 +9,9 @@ class Registration extends React.Component {
 
     state={
         email:'',
-        pas:''
+        pas:'',
+        pas2:'sdsfsdf'
+
     }
 
 
