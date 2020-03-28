@@ -2,9 +2,15 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width:100px;
+    width:200px;
     margin: 0 auto;
     margin-top: 400px;
 
 
+}
+
+.btn{
+    border: 1px solid black;
+    background-color:black;
+    color: antiquewhite;
 }

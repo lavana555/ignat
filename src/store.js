@@ -3,11 +3,11 @@ import  thunkMiddleware from "redux-thunk"
 import {regInReducer} from "./regInReducer";
 
 const reducers=combineReducers({
-    logIn:logInReducer,
-    regIn:regInReducer,
-    recPas:recPasReducer,
-    newPas:newPasReducer,
-    profile:profileReducer
+    // logIn:logInReducer,
+    regIn:regInReducer
+    // recPas:recPasReducer,
+    // newPas:newPasReducer,
+    // profile:profileReducer
 })
 
 
