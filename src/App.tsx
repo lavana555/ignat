@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="App">
     <Registration />
-    {/*<RecoveryPassContainer/>*/}
+    <RecoveryPassContainer/>
     </div>
   );
 }
