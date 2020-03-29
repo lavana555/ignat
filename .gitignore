@@ -28,6 +28,7 @@
 .idea/**/dictionaries
 .idea/**/shelf
 /.idea
+'.idea'
 # Sensitive or high-churn files
 .idea/**/dataSources/
 .idea/**/dataSources.ids
@@ -77,4 +78,4 @@ crashlytics-build.properties
 fabric.properties
 
 # Editor-based Rest Client
-.idea/httpRequests
+.idea/httpRequests'.idea' 
