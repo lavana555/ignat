@@ -1,12 +1,17 @@
 import React from 'react';
-import logo from './logo.svg';
+
 import './App.css';
 import Registration from "./Registration";
+import Loginization from "./Loginization";
+import { Route } from 'react-router-dom';
 
 function App() {
   return (
     <div className="App">
-    <Registration />
+
+    <Route path='/registration' component={Registration } />
+      <Route path='/loginization'  component={Loginization} />
+
     </div>
   );
 }
