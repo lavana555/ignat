@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Registration from "./Registration";
-import RecoveryPassContainer from "./RecoveryPass/RecoveryPassContainer";
+import WithRouterRecoveryPassContainer from "./RecoveryPass/RecoveryPassContainer";
 import {BrowserRouter, Link, Route} from "react-router-dom";
 
 class App extends React.Component {
@@ -32,7 +32,7 @@ class App extends React.Component {
                             <li><Link to="Forgot">RecoveryPassword</Link></li>
                         </ul>
                           <Route exact path='/Registration' component={Registration}/>
-                          <Route exact path='/Forgot' component={RecoveryPassContainer}/>
+                          <Route exact path='/Forgot/:token' component={WithRouterRecoveryPassContainer}/>
                       </>
                         }
                     </div>
