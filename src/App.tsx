@@ -32,7 +32,7 @@ class App extends React.Component {
                             <li><Link to="Forgot">RecoveryPassword</Link></li>
                         </ul>
                           <Route exact path='/Registration' component={Registration}/>
-                          <Route exact path='/Forgot/:token' component={WithRouterRecoveryPassContainer}/>
+                          <Route exact path='/Forgot/' component={WithRouterRecoveryPassContainer}/>
                       </>
                         }
                     </div>

@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {apiRecovery} from "../dal/apiRecovery";
+import {apiNewPass} from "../dal/apiNewPass";
 
 const PASSWORD_RECOVERY = "app/newPassReducer/PASSWORD_RECOVERY"
 const ERROR_ALERT = "app/newPassReducer/ERROR_ALERT"
@@ -12,7 +12,7 @@ const initialState = {
     loading: false
 }
 
-export const recPassReducer = (state = initialState, action: recPassActionType) => {
+export const newPassReducer = (state = initialState, action: recPassActionType) => {
     switch (action.type) {
         case PASSWORD_RECOVERY:
             return {...state, success: action.success};
@@ -58,7 +58,7 @@ export const deleteErrorMessage = () => (dispatch: Dispatch) => {
 export const sendMail = (mail: string) => async (dispatch: Dispatch) => {
     try {
         dispatch(loadingStatusChanging(true));
-        let response: any = await apiRecovery.sendMail(mail);
+        let response: any = await apiNewPass.sendMail(mail);
         dispatch(loadingStatusChanging(false));
         dispatch(recoveryPassSuccess(response))
     }
