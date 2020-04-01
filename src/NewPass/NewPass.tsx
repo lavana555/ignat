@@ -1,24 +1,47 @@
-import React, {Component, ChangeEvent} from 'react';
+import React, {ChangeEvent, Component} from 'react';
 
-type PropsType = {
-    sendMail: (email: string) => void
+type OwnPropsType = {
+    token: string
     success: boolean
+    loading: boolean
     error: string
-    deleteErrorMessage:()=>void
-    loading:boolean
+    disable:boolean
+    addNewPass: (token: string, password: string) => void
+    deleteErrorMessage: () => void
+}
+type PropsType = OwnPropsType
+
+type StateType = {
+    password: string
+    password2: string
+    errorPass: boolean
 }
 
-class NewPass extends Component<PropsType> {
+class NewPass extends Component<PropsType, StateType> {
+
     state = {
-        email: "",
+        password: "",
+        password2: "",
+        errorPass: false
     }
-    emailAdd = (e: ChangeEvent<HTMLInputElement>) => {
-        let emailValue = e.currentTarget.value;
-        this.setState({email: emailValue});
-        this.props.deleteErrorMessage()
+    changePassword = (e: ChangeEvent<HTMLInputElement>) => {
+        let passwordValue = e.currentTarget.value;
+        this.setState({password: passwordValue,errorPass:false});
+
     }
-    sendMail = () => {
-     this.props.sendMail(this.state.email)
+    changePassword2 = (e: ChangeEvent<HTMLInputElement>) => {
+        let passwordValue = e.currentTarget.value;
+        this.setState({password2: passwordValue,errorPass:false});
+
+    }
+    addNewPass = () => {
+        if (this.state.password === this.state.password2) {
+            let token = this.props.token;
+            this.props.addNewPass(token, this.state.password)
+            this.props.deleteErrorMessage()
+        } else {
+            this.setState({errorPass:true})
+        }
     }
 
     render() {
@@ -26,18 +49,21 @@ class NewPass extends Component<PropsType> {
             <div>
                 {!this.props.success ?
                     <div>
-                        <div>Forgot</div>
+                        <div>New Password</div>
                         <div>
-                            <input placeholder={'enter your email'} value={this.state.email} onChange={this.emailAdd}/>
-                            {this.props.loading?<div style={{color:"red"}}>Loading...</div>:null}
-                            {this.props.error!==""?<div style={{color:"red"}}>{this.props.error}</div>:null}
+                            <div> <input type={"password"} placeholder={'new password'} value={this.state.password}
+                                   onChange={this.changePassword}/></div>
+                                <div><input type={"password"} placeholder={'new password'} value={this.state.password2}
+                                   onChange={this.changePassword2}/></div>
+                            {this.state.errorPass ? <div style={{color: "red"}}>You entered two different passwords. Please try again</div> : null}
+                            {this.props.loading ? <div style={{color: "red"}}>Loading...</div> : null}
+                            {this.props.error !== "" ? <div style={{color: "red"}}>{this.props.error}</div> : null}
                         </div>
                         <div>
-                            <button onClick={this.sendMail}>Send email</button>
+                            <button disabled={this.props.disable} onClick={this.addNewPass}>Change Password</button>
                         </div>
-                        <a href={'#'}>Sign in</a>
                     </div>
-                    : <div>Check your email</div>
+                    : <div>Password Changed</div>
                 }
             </div>
         );

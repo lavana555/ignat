@@ -1,10 +1,10 @@
 import {Dispatch} from "redux";
 import {apiRecovery} from "../dal/apiRecovery";
 
-const PASSWORD_RECOVERY = "app/newPassReducer/PASSWORD_RECOVERY"
-const ERROR_ALERT = "app/newPassReducer/ERROR_ALERT"
-const DELETE_ERROR = "app/newPassReducer/DELETE_ERROR"
-const LOADING_STATUS = "app/newPassReducer/LOADING_STATUS"
+const PASSWORD_RECOVERY = "app/recPassReducer/PASSWORD_RECOVERY"
+const ERROR_ALERT = "app/recPassReducer/ERROR_ALERT"
+const DELETE_ERROR = "app/recPassReducer/DELETE_ERROR"
+const LOADING_STATUS = "app/recPassReducer/LOADING_STATUS"
 
 const initialState = {
     success: false,
@@ -63,7 +63,6 @@ export const sendMail = (mail: string) => async (dispatch: Dispatch) => {
         dispatch(recoveryPassSuccess(response))
     }
     catch (error) {
-        debugger
         dispatch(loadingStatusChanging(false));
         dispatch(errorAlertSuccess(error.response.data.error))
 

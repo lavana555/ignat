@@ -1,40 +1,48 @@
 import React, {Component} from 'react';
 import NewPass from "./NewPass";
-import {deleteErrorMessage, sendMail} from "./bll/newPassReducer";
+import {deleteErrorMessage, addNewPass} from "./bll/newPassReducer";
 import {connect} from "react-redux";
-import {withRouter, RouteComponentProps} from "react-router";
+import {RouteComponentProps} from "react-router";
+import {withRouter} from "react-router-dom";
 
+type MatchParams = {
+    token: string
+}
 type MapStateType = {
     success: boolean
+    loading: boolean
     error: string
-    loading:boolean
+    disable:boolean
 }
 type MapDispatchType = {
-    sendMail: (email: string) => void
-    deleteErrorMessage:()=>void
+    addNewPass: (token: string, password: string) => void
+    deleteErrorMessage: () => void
 }
-type PropsType = MapDispatchType & MapStateType&RouteComponentProps
+type PropsType = MapDispatchType & MapStateType & RouteComponentProps<MatchParams>
 
 class NewPassContainer extends Component<PropsType> {
     render() {
         return (
             <div>
-                <NewPass deleteErrorMessage={this.props.deleteErrorMessage}
+                <NewPass token={this.props.match.params.token}
+                         disable={this.props.disable}
                          success={this.props.success}
-                         error={this.props.error}
                          loading={this.props.loading}
-                         sendMail={this.props.sendMail}/>
+                         error={this.props.error}
+                         addNewPass={this.props.addNewPass}
+                         deleteErrorMessage={this.props.deleteErrorMessage}/>
             </div>
         );
     }
 }
 
 const mstp = (state: any): MapStateType => ({
-    success: state.recPass.success,
-    error: state.recPass.error,
-    loading:state.recPass.loading
+    success: state.newPass.success,
+    error: state.newPass.error,
+    loading: state.newPass.loading,
+    disable: state.newPass.disable
 })
 
 
-let WithRouterRecoveryPassContainer = withRouter(NewPassContainer);
-export default connect(mstp, {sendMail,deleteErrorMessage})(WithRouterRecoveryPassContainer)
+let WithRouterNewPassContainer = withRouter(NewPassContainer);
+export default connect(mstp, {addNewPass, deleteErrorMessage})(WithRouterNewPassContainer)

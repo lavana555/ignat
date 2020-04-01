@@ -5,12 +5,11 @@ const instance = axios.create({
 })
 
 export const apiNewPass = {
-    sendMail(email: string) {
-        return instance.post(`auth/forgot`,
+    addNewPass(token:string,password: string) {
+        return instance.post(`auth/set-new-password`,
             {
-                email: email,
-                html1: "<a href='http://localhost:3000/#/reset-password/",
-                html2: "'>reset-password-link</a>"
+                resetPasswordToken: token,
+                password: password
             }).then(res => res.data.success)
     }
 }
