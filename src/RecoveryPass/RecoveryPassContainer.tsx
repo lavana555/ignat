@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import RecoveryPass from "./RecoveryPass";
 import {deleteErrorMessage, sendMail} from "./bll/recPassReducer";
 import {connect} from "react-redux";
+import {withRouter, RouteComponentProps} from "react-router";
 
 type MapStateType = {
     success: boolean
@@ -12,7 +13,7 @@ type MapDispatchType = {
     sendMail: (email: string) => void
     deleteErrorMessage:()=>void
 }
-type PropsType = MapDispatchType & MapStateType
+type PropsType = MapDispatchType & MapStateType&RouteComponentProps
 
 class RecoveryPassContainer extends Component<PropsType> {
     render() {
@@ -34,4 +35,6 @@ const mstp = (state: any): MapStateType => ({
     loading:state.recPass.loading
 })
 
-export default connect(mstp, {sendMail,deleteErrorMessage})(RecoveryPassContainer)
+
+let WithRouterRecoveryPassContainer = withRouter(RecoveryPassContainer);
+export default connect(mstp, {sendMail,deleteErrorMessage})(WithRouterRecoveryPassContainer)

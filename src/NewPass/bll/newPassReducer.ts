@@ -1,20 +1,22 @@
 import {Dispatch} from "redux";
-import {apiRecovery} from "../dal/apiRecovery";
+import {apiNewPass} from "../dal/apiNewPass";
 
-const PASSWORD_RECOVERY = "app/recPassReducer/PASSWORD_RECOVERY"
-const ERROR_ALERT = "app/recPassReducer/ERROR_ALERT"
-const DELETE_ERROR = "app/recPassReducer/DELETE_ERROR"
-const LOADING_STATUS = "app/recPassReducer/LOADING_STATUS"
+const RESET_PASSWORD = "app/newPassReducer/RESET_PASSWORD"
+const ERROR_ALERT = "app/newPassReducer/ERROR_ALERT"
+const DELETE_ERROR = "app/newPassReducer/DELETE_ERROR"
+const LOADING_STATUS = "app/newPassReducer/LOADING_STATUS"
+const DISABLE_STATUS = "app/newPassReducer/DISABLE_STATUS"
 
 const initialState = {
     success: false,
     error: "",
-    loading: false
+    loading: false,
+    disable: false
 }
 
-export const recPassReducer = (state = initialState, action: recPassActionType) => {
+export const newPassReducer = (state = initialState, action: recPassActionType) => {
     switch (action.type) {
-        case PASSWORD_RECOVERY:
+        case RESET_PASSWORD:
             return {...state, success: action.success};
         case ERROR_ALERT:
             return {...state, error: action.error};
@@ -22,21 +24,30 @@ export const recPassReducer = (state = initialState, action: recPassActionType) 
             return {...state, error: ""};
         case LOADING_STATUS:
             return {...state, loading: action.loading};
+        case DISABLE_STATUS:
+            return {...state, disable: action.disable};
         default:
             return state
     }
 }
 type recPassActionType =
-    RecoveryPassSuccessActionType
+    ResetPassSuccessActionType
     | ErrorAlertActionType
     | DeleteErrorMessageActionType
     | LoadingStatusActionType
+    | DisableStatusActionType
 
-type RecoveryPassSuccessActionType = {
-    type: typeof PASSWORD_RECOVERY
+type ResetPassSuccessActionType = {
+    type: typeof RESET_PASSWORD
     success: boolean
 }
-const recoveryPassSuccess = (success: boolean): RecoveryPassSuccessActionType => ({type: PASSWORD_RECOVERY, success})
+const resetPassSuccess = (success: boolean): ResetPassSuccessActionType => ({type: RESET_PASSWORD, success})
+type DisableStatusActionType = {
+    type: typeof DISABLE_STATUS
+    disable: boolean
+}
+const disableStatusChanging  = (disable: boolean): DisableStatusActionType => ({type: DISABLE_STATUS, disable})
+
 type LoadingStatusActionType = {
     type: typeof LOADING_STATUS
     loading: boolean
@@ -55,15 +66,18 @@ const deleteErrorMessageSuccess = (): DeleteErrorMessageActionType => ({type: DE
 export const deleteErrorMessage = () => (dispatch: Dispatch) => {
     dispatch(deleteErrorMessageSuccess())
 }
-export const sendMail = (mail: string) => async (dispatch: Dispatch) => {
+export const addNewPass = (token: string, password: string) => async (dispatch: Dispatch) => {
     try {
         dispatch(loadingStatusChanging(true));
-        let response: any = await apiRecovery.sendMail(mail);
+        dispatch(disableStatusChanging(true));
+        let response: any = await apiNewPass.addNewPass(token, password);
         dispatch(loadingStatusChanging(false));
-        dispatch(recoveryPassSuccess(response))
-    }
-    catch (error) {
+        dispatch(disableStatusChanging(false));
+        dispatch(resetPassSuccess(response))
+    } catch (error) {
+        debugger
         dispatch(loadingStatusChanging(false));
+        dispatch(disableStatusChanging(false));
         dispatch(errorAlertSuccess(error.response.data.error))
 
     }

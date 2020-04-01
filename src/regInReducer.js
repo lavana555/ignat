@@ -1,26 +1,42 @@
-import {api} from  './api'
-
-export const REGISTER='REGISTER_USER'
+import {api} from './api'
 
 
+export const REGISTER = 'REGISTER_USER'
+export const LOADING_STATUS = 'LOADING'
+export const ERROR_MESSAGE='ERROR_MESSAGE'
 
- const intialstate={
-    success:false
+
+const intialstate = {
+    success: false,
+    loading: false,
+    error:''
 }
 
 
+export const regInReducer = (state = intialstate, action) => {
 
-export const regInReducer=(state=intialstate,action)=>{
     switch (action.type) {
-        case REGISTER:{
-            return{
+        case REGISTER: {
+            return {
                 ...state,
                 success: action.succusess
             }
+        }
+        case LOADING_STATUS: {
+            return {
+                ...state,
+                loading: action.loading
+            }
 
         }
-        default:{
-            return  state;
+        case ERROR_MESSAGE : {
+          return {
+              ...state,
+              error: action.error
+          }
+        }
+        default: {
+            return state;
         }
 
     }
@@ -28,19 +44,40 @@ export const regInReducer=(state=intialstate,action)=>{
 }
 
 
-export const addUserTC=(email,pas)=>{
-    return(dispatch)=>{
-        api.addRegistrApi(email,pas).then(res=>{
-            debugger;
-            let success=res.data.success
-            dispatch(addUserAC(success))
-        })
+export const addUserTC = (email, pas) => async (dispatch) => {
+
+    try {
+        dispatch(loadAC(true))
+        let res = await api.addRegistrApi(email, pas)
+        let success = res.data.success
+        dispatch(loadAC(false))
+        dispatch(addUserAC(success))
+    } catch (e) {
+      // debugger
+        //console.log(res)
+        dispatch(loadAC(false))
+        dispatch(errorAlertSuccess(e.response.data.error))
+
+
     }
 }
 
 
-const addUserAC=(succusess)=>{
+
+const addUserAC = (succusess) => {
     return {
-        type:REGISTER, succusess
+        type: REGISTER, succusess
+    }
+}
+
+const loadAC = (loading) => {
+    return {
+        type: LOADING_STATUS, loading
+    }
+}
+
+const errorAlertSuccess=(error)=>{
+    return{
+        type : ERROR_MESSAGE, error
     }
 }
