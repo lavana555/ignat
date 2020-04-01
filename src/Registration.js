@@ -58,7 +58,7 @@ class Registration extends React.Component {
             <div className={classes.register}>
                 register
                 mail: <input onChange={this.ChangedEmil}/>
-                passsword: <input onChange={this.ChangedPassOne}/>
+                password: <input onChange={this.ChangedPassOne}/>
                 password: <input onChange={this.ChangedPassTwo}/>
                 {this.state.errorPas ?
                     <div style={{color: "red"}}>You entered two different passwords. Please try again</div> : null}
