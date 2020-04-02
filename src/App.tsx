@@ -5,7 +5,7 @@ import WithRouterRecoveryPassContainer from "./RecoveryPass/RecoveryPassContaine
 import {BrowserRouter, Link, Route} from "react-router-dom";
 import NewPass from "./NewPass/NewPass";
 import WithRouterNewPassContainer from "./NewPass/NewPassContainer";
-import Loginization from "./Login/Loginization";
+
 
 class App extends React.Component {
 
@@ -33,7 +33,7 @@ class App extends React.Component {
                             <li><Link to="SignIN">sig-in</Link></li>
                             <li><Link to="Registration">register</Link></li>
                             <li><Link to="Forgot">RecoveryPassword</Link></li>
-                            <li><Link to="login">Login</Link></li>
+                            {/*<li><Link to="login">Login</Link></li>*/}
                         </ul>
 
                       </>
@@ -41,7 +41,7 @@ class App extends React.Component {
                         <Route exact path='/Registration' component={Registration}/>
                         <Route exact path='/Forgot/' component={WithRouterRecoveryPassContainer}/>
                         <Route exact path='/reset-password/:token' component={WithRouterNewPassContainer}/>
-                        <Route exact path='/login/' component={Loginization}/>
+                        {/*<Route exact path='/login/' component={Loginization}/>*/}
                     </div>
 
                     {/*<Route exact path='/SignIN' component={SignIN}/>*/}

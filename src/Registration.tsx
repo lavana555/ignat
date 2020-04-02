@@ -1,10 +1,30 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import classes from './Registration.module.css'
 import {connect} from "react-redux";
 import {addUserTC} from "./regInReducer";
 
 
-class Registration extends React.Component {
+
+type MapStateType={
+    loading: boolean
+    error: string
+}
+
+type MapDispatchType={
+    addUserTC:(email:string,pas:string)=>void
+}
+
+type StateType={
+    email: string,
+    pas1: string,
+    pas2: string,
+    errorPas: boolean,
+    errorMail: boolean
+}
+
+type PropsType= MapStateType &  MapDispatchType
+
+class Registration extends React.Component<PropsType, StateType> {
 
     state = {
         email: '',
@@ -15,23 +35,26 @@ class Registration extends React.Component {
     }
 
 
-    ChangedEmil = (e) => {
+    ChangedEmil = (e:ChangeEvent<HTMLInputElement>) => {
         // let newEmail=
         this.setState({
-            email: e.currentTarget.value
+            email: e.currentTarget.value,
+            errorMail:false
         })
 
     }
 
-    ChangedPassOne = (e) => {
+    ChangedPassOne = (e:ChangeEvent<HTMLInputElement>) => {
         this.setState({
-            pas1: e.currentTarget.value
+            pas1: e.currentTarget.value,
+            errorPas:false
         })
     }
 
-    ChangedPassTwo = (e) => {
+    ChangedPassTwo = (e:ChangeEvent<HTMLInputElement>) => {
         this.setState({
-            pas2: e.currentTarget.value
+            pas2: e.currentTarget.value,
+            errorPas:false
         })
     }
 
@@ -75,7 +98,7 @@ class Registration extends React.Component {
 }
 
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state:any) => {
     return {
         loading: state.regIn.loading,
         error:state.regIn.error

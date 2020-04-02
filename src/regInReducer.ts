@@ -1,4 +1,5 @@
 import {api} from './api'
+import {Dispatch} from "redux";
 
 
 export const REGISTER = 'REGISTER_USER'
@@ -13,7 +14,7 @@ const intialstate = {
 }
 
 
-export const regInReducer = (state = intialstate, action) => {
+export const regInReducer = (state = intialstate, action:RegActionType) => {
 
     switch (action.type) {
         case REGISTER: {
@@ -44,7 +45,7 @@ export const regInReducer = (state = intialstate, action) => {
 }
 
 
-export const addUserTC = (email, pas) => async (dispatch) => {
+export const addUserTC = (email:string, pas:string) => async (dispatch:Dispatch) => {
 
     try {
         dispatch(loadAC(true))
@@ -62,22 +63,28 @@ export const addUserTC = (email, pas) => async (dispatch) => {
     }
 }
 
+type RegActionType=AddUserActionType
+|LoadActionType
+|ErrorAlertSuccessActionType
 
 
-const addUserAC = (succusess) => {
-    return {
-        type: REGISTER, succusess
-    }
+
+
+const addUserAC = (succusess:boolean):AddUserActionType => ({type: REGISTER, succusess})
+type AddUserActionType={
+    type:typeof REGISTER,
+    succusess:boolean
 }
 
-const loadAC = (loading) => {
-    return {
-        type: LOADING_STATUS, loading
-    }
+const loadAC = (loading:boolean) :LoadActionType=>({type: LOADING_STATUS, loading})
+type LoadActionType={
+    type:typeof LOADING_STATUS,
+    loading:boolean
 }
 
-const errorAlertSuccess=(error)=>{
-    return{
-        type : ERROR_MESSAGE, error
-    }
+const errorAlertSuccess=(error:string):ErrorAlertSuccessActionType=>({type : ERROR_MESSAGE, error})
+type ErrorAlertSuccessActionType={
+    type:typeof ERROR_MESSAGE,
+    error:string
+
 }
