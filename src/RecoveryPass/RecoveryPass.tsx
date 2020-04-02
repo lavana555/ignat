@@ -1,4 +1,5 @@
 import React, {Component, ChangeEvent} from 'react';
+import { Link } from 'react-router-dom';
 
 type PropsType = {
     sendMail: (email: string) => void
@@ -6,9 +7,13 @@ type PropsType = {
     error: string
     deleteErrorMessage:()=>void
     loading:boolean
+    disable:boolean
+}
+type StateType = {
+    email:string
 }
 
-class RecoveryPass extends Component<PropsType> {
+class RecoveryPass extends Component<PropsType,StateType> {
     state = {
         email: "",
     }
@@ -33,9 +38,9 @@ class RecoveryPass extends Component<PropsType> {
                             {this.props.error!==""?<div style={{color:"red"}}>{this.props.error}</div>:null}
                         </div>
                         <div>
-                            <button onClick={this.sendMail}>Send email</button>
+                            <button disabled={this.props.disable} onClick={this.sendMail}>Send email</button>
                         </div>
-                        <a href={'#'}>Sign in</a>
+                        <Link to="/login">Sign in</Link>
                     </div>
                     : <div>Check your email</div>
                 }
