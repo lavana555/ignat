@@ -6,8 +6,9 @@ import {addUserTC} from "./regInReducer";
 
 
 type MapStateType={
-    loading: boolean
-    error: string
+    loading: boolean,
+    error: string,
+    succes:boolean
 }
 
 type MapDispatchType={
@@ -101,7 +102,8 @@ class Registration extends React.Component<PropsType, StateType> {
 const mapStateToProps = (state:any) => {
     return {
         loading: state.regIn.loading,
-        error:state.regIn.error
+        error:state.regIn.error,
+        success:state.regIn.success
     }
 }
 
