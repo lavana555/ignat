@@ -17,11 +17,10 @@ const intialstate = {
 export const regInReducer = (state = intialstate, action:RegActionType) => {
 
     switch (action.type) {
-
         case REGISTER: {
             return {
                 ...state,
-                success: action.success
+                success: action.succusess
             }
         }
         case LOADING_STATUS: {
@@ -51,7 +50,6 @@ export const addUserTC = (email:string, pas:string) => async (dispatch:Dispatch)
     try {
         dispatch(loadAC(true))
         let res = await api.addRegistrApi(email, pas)
-        //debugger
         let success = res.data.success
         dispatch(loadAC(false))
         dispatch(addUserAC(success))
@@ -72,10 +70,10 @@ type RegActionType=AddUserActionType
 
 
 
-const addUserAC = (success:boolean):AddUserActionType => ({type: REGISTER, success})
+const addUserAC = (succusess:boolean):AddUserActionType => ({type: REGISTER, succusess})
 type AddUserActionType={
     type:typeof REGISTER,
-    success:boolean
+    succusess:boolean
 }
 
 const loadAC = (loading:boolean) :LoadActionType=>({type: LOADING_STATUS, loading})
