@@ -4,12 +4,14 @@ import {regInReducer} from "./regInReducer";
 import {recPassReducer} from "./RecoveryPass/bll/recPassReducer";
 import {newPassReducer} from "./NewPass/bll/newPassReducer";
 import logInReducer from "./Login/login-reducer";
+import {UserReducer} from "./Users/UsersReducers";
 
 const rootReducer = combineReducers({
     logIn: logInReducer,
     regIn: regInReducer,
     recPass: recPassReducer,
     newPass: newPassReducer,
+    US:UserReducer
     // profile:profileReducer
 })
 

@@ -11,5 +11,9 @@ export const api = {
             email,
                 password
         })
+    },
+    getUsersApi(){
+      return instance.get(`auth`)
     }
+
 }

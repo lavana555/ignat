@@ -6,6 +6,7 @@ import {BrowserRouter, Link, Route} from "react-router-dom";
 import NewPass from "./NewPass/NewPass";
 import WithRouterNewPassContainer from "./NewPass/NewPassContainer";
 import Loginization from "./Login/Loginization";
+import Users from "./Users/Users";
 
 
 class App extends React.Component {
@@ -46,7 +47,7 @@ class App extends React.Component {
                     </div>
 
                     {/*<Route exact path='/SignIN' component={SignIN}/>*/}
-
+<Users />
                     {/*<Registration/>*/}
                     {/*<RecoveryPassContainer/>*/}
                 </div>
