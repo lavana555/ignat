@@ -9,6 +9,7 @@ type MapStateType = {
     success: boolean
     error: string
     loading:boolean
+    disable:boolean
 }
 type MapDispatchType = {
     sendMail: (email: string) => void
@@ -21,6 +22,7 @@ class RecoveryPassContainer extends Component<PropsType> {
         return (
             <div>
                 <RecoveryPass  deleteErrorMessage={this.props.deleteErrorMessage}
+                               disable={this.props.disable}
                                success={this.props.success}
                                error={this.props.error}
                                loading={this.props.loading}
@@ -33,7 +35,8 @@ class RecoveryPassContainer extends Component<PropsType> {
 const mstp = (state: AppStateType): MapStateType => ({
     success: state.recPass.success,
     error: state.recPass.error,
-    loading:state.recPass.loading
+    loading:state.recPass.loading,
+    disable:state.recPass.disable
 })
 
 

@@ -5,11 +5,13 @@ const PASSWORD_RECOVERY = "app/recPassReducer/PASSWORD_RECOVERY"
 const ERROR_ALERT = "app/recPassReducer/ERROR_ALERT"
 const DELETE_ERROR = "app/recPassReducer/DELETE_ERROR"
 const LOADING_STATUS = "app/recPassReducer/LOADING_STATUS"
+const DISABLE_STATUS = "app/recPassReducer/DISABLE_STATUS"
 
 const initialState = {
     success: false,
     error: "",
-    loading: false
+    loading: false,
+    disable: false
 }
 
 export const recPassReducer = (state = initialState, action: recPassActionType) => {
@@ -22,6 +24,8 @@ export const recPassReducer = (state = initialState, action: recPassActionType) 
             return {...state, error: ""};
         case LOADING_STATUS:
             return {...state, loading: action.loading};
+        case DISABLE_STATUS:
+            return {...state, disable: action.disable};
         default:
             return state
     }
@@ -31,7 +35,13 @@ type recPassActionType =
     | ErrorAlertActionType
     | DeleteErrorMessageActionType
     | LoadingStatusActionType
+    | DisableStatusActionType
 
+type DisableStatusActionType = {
+    type: typeof DISABLE_STATUS
+    disable: boolean
+}
+const disableStatusChanging  = (disable: boolean): DisableStatusActionType => ({type: DISABLE_STATUS, disable})
 type RecoveryPassSuccessActionType = {
     type: typeof PASSWORD_RECOVERY
     success: boolean
@@ -58,13 +68,14 @@ export const deleteErrorMessage = () => (dispatch: Dispatch) => {
 export const sendMail = (mail: string) => async (dispatch: Dispatch) => {
     try {
         dispatch(loadingStatusChanging(true));
+        dispatch(disableStatusChanging(true));
         let response: any = await apiRecovery.sendMail(mail);
         dispatch(loadingStatusChanging(false));
+        dispatch(disableStatusChanging(false));
         dispatch(recoveryPassSuccess(response))
-    }
-    catch (error) {
+    } catch (error) {
         dispatch(loadingStatusChanging(false));
+        dispatch(disableStatusChanging(false));
         dispatch(errorAlertSuccess(error.response.data.error))
-
     }
 }
