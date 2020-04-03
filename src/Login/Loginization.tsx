@@ -7,7 +7,8 @@ import s from "./Loginization.module.css"
 type MapStateType = {
     email: string,
     password: string,
-    rememberMe: boolean
+    rememberMe: boolean,
+    token:string
 }
 type MapDispatchType = {
     loginTC: (email: string, password: string, rememberMe: boolean) => void
@@ -60,6 +61,8 @@ class Loginization extends Component<PropsType> {
             <input type='checkbox' checked={this.state.rememberMe}
                    onChange={this.rememberMe}/><span>Запомнить меня</span>
             <button onClick={this.addLogin}>Войти</button>
+            <div>{this.props.token}</div>
+            {this.props.token? <div>{this.props.token}</div>:null}
         </div>
     }
 };
@@ -68,7 +71,8 @@ class Loginization extends Component<PropsType> {
 const mstp = (state: any): MapStateType => ({
     email: state.logIn.email,
     password: state.logIn.password,
-    rememberMe: state.logIn.rememberMe
+    rememberMe: state.logIn.rememberMe,
+    token:state.logIn.token
 
 });
 export default connect(mstp, {loginTC})(Loginization)
