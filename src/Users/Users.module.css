@@ -6,6 +6,7 @@
     padding-right: 15px;
     
     margin-top: 15px;
+    margin-bottom: 50px;
 }
 
 .btn{
@@ -20,6 +21,10 @@
     border-radius: 8px;
 }
 
+.btn:hover{
+    transform: scale(1.1);
+    opacity: 0.6;
+}
 
 .items{
 display: flex;

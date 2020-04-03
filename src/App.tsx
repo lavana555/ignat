@@ -29,9 +29,14 @@ class App extends React.Component {
             <BrowserRouter>
                 <div className="App">
                     <div className="header">
-                        <div className="headerbtn" onClick={this.showHedaer}>SHOW HEADER</div>
+                        {!this.state.flag &&
+                            <div className="headerbtn" onClick={this.showHedaer}>SHOW HEADER</div>
+                        }
                         {this.state.flag &&
-                      <>  <ul className="nav">
+
+                      <>
+                          <div className="headerbtn" onClick={this.showHedaer}>COVER HEADER</div>
+                          <ul className="nav">
                             <li><Link to="SignIN">sig-in</Link></li>
                             <li><Link to="Registration">register</Link></li>
                             <li><Link to="Forgot">RecoveryPassword</Link></li>

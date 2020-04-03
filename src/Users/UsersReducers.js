@@ -51,10 +51,20 @@ const getUsersAC=(users)=> {
         users: users
     }
 }
+
+const loadAC=(loading)=>{
+    return {
+        type:LOADING_STATUS,
+        loading:loading
+    }
+}
+
 export const getTodolistsTC=()=>(dispatch)=>{
+    dispatch(loadAC(true))
     api.getUsersApi()
         .then(res=>{
             debugger;
+            dispatch(loadAC(false))
             dispatch(getUsersAC(res.data.users))
         })
 }

@@ -2,13 +2,14 @@ import React, {ChangeEvent} from 'react';
 import classes from './Registration.module.css'
 import {connect} from "react-redux";
 import {addUserTC} from "./regInReducer";
+import {Redirect} from "react-router";
 
 
 
 type MapStateType={
     loading: boolean,
     error: string,
-    succes:boolean
+    success:boolean
 }
 
 type MapDispatchType={
@@ -78,6 +79,8 @@ class Registration extends React.Component<PropsType, StateType> {
     }
 
     render = () => {
+        if (this.props.success)return <Redirect to={'/login'}/>
+
         return (
             <div className={classes.register}>
                 register

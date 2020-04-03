@@ -20,7 +20,7 @@ export const regInReducer = (state = intialstate, action:RegActionType) => {
         case REGISTER: {
             return {
                 ...state,
-                success: action.succusess
+                success: action.success
             }
         }
         case LOADING_STATUS: {
@@ -70,10 +70,10 @@ type RegActionType=AddUserActionType
 
 
 
-const addUserAC = (succusess:boolean):AddUserActionType => ({type: REGISTER, succusess})
+const addUserAC = (success:boolean):AddUserActionType => ({type: REGISTER, success})
 type AddUserActionType={
     type:typeof REGISTER,
-    succusess:boolean
+    success:boolean
 }
 
 const loadAC = (loading:boolean) :LoadActionType=>({type: LOADING_STATUS, loading})

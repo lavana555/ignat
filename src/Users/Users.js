@@ -8,13 +8,15 @@ class Users extends React.Component {
 
 
     state = {
-        flag: false
+        flag: false,
+
 
     }
     showMeUsers = () => {
         this.props.getTodolistsTC()
         this.setState({
             flag: !this.state.flag
+
         })
     }
 
@@ -22,10 +24,14 @@ class Users extends React.Component {
         let UsersEl = this.props.users.map(u => <User name={u.name}/>)
         return (
             <div>
-                <div className={classes.btn} onClick={this.showMeUsers}>Show USERS</div>
+                {!this.state.flag &&
+                <div className={classes.btn} onClick={this.showMeUsers}>SHOW USERS</div>
+                }
+                {this.props.loading ? <div style={{color: "red"}}>Loading...</div> : null}
                 {this.state.flag &&
+                // <div className={classes.btn} onClick={this.showMeUsers}>COVER USERS</div>
                 <div className={classes.container}>
-
+                    <div className={classes.btn} onClick={this.showMeUsers}>COVER USERS</div>
                     <div className={classes.items}>
                         {UsersEl}
 
@@ -41,7 +47,8 @@ class Users extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        users: state.US.users
+        users: state.US.users,
+        loading:state.US.loading
     }
 }
 
